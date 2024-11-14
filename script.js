@@ -24,8 +24,59 @@ const questions = [
         question: "Which place value represents hundreds in the base-10 system?",
         options: ["10", "100", "1", "1000"],
         correctAnswer: 1
+    },
+    {
+        question: "What is the hexadecimal representation of the decimal number 15?",
+        options: ["D", "E", "F", "G"],
+        correctAnswer: 2
+    },
+    {
+        question: "How many bits are in a byte?",
+        options: ["4", "8", "16", "32"],
+        correctAnswer: 1
+    },
+    {
+        question: "What is the base-2 equivalent of the decimal number 10?",
+        options: ["1010", "10", "110", "1001"],
+        correctAnswer: 0
+    },
+    {
+        question: "Which base is commonly used in computing to represent color codes?",
+        options: ["Binary", "Octal", "Hexadecimal", "Decimal"],
+        correctAnswer: 2
+    },
+    {
+        question: "In binary, what is the result of 1 + 1?",
+        options: ["10", "11", "0", "1"],
+        correctAnswer: 0
+    },
+    {
+        question: "What is the decimal value of the binary number 1010?",
+        options: ["5", "10", "8", "15"],
+        correctAnswer: 1
+    },
+    {
+        question: "Which base is also known as the octal system?",
+        options: ["Base-16", "Base-8", "Base-2", "Base-10"],
+        correctAnswer: 1
+    },
+    {
+        question: "In hexadecimal, what digit follows 'F'?",
+        options: ["E", "G", "10", "16"],
+        correctAnswer: 2
+    },
+    {
+        question: "How many symbols are there in the hexadecimal system?",
+        options: ["2", "8", "10", "16"],
+        correctAnswer: 3
+    },
+    {
+        question: "What is the binary equivalent of the hexadecimal number 'A'?",
+        options: ["1010", "1100", "1111", "1001"],
+        correctAnswer: 0
     }
 ];
+
 
 let currentQuestion = 0;
 let timer = 60;
