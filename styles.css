@@ -125,12 +125,14 @@ p {
     align-items: center;
 }
 
-.wave-logo {
-    max-width: 80px;
-    margin-bottom: 10px;
+.donation-method {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 15px;
 }
 
-.donate-info p {
-    font-size: 1.2rem;
-    color: #2c3e50;
+.wave-logo,
+.gtbank-logo {
+    max-width: 80px;
 }
