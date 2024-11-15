@@ -5,7 +5,26 @@ const questions = [
         options: ["A numbering system with 8 as the base", "A numbering system with 16 as the base", "A numbering system with 10 as the base", "A numbering system with 2 as the base"],
         correctAnswer: 2
     },
-    // Add additional questions here
+    {
+        question: "How is a number expressed in binary?",
+        options: ["Using digits 1 to 9", "Using digits 0 and 1", "Using hexadecimal letters", "Using Roman numerals"],
+        correctAnswer: 1
+    },
+    {
+        question: "What does the place value of a digit depend on?",
+        options: ["Its position in the number", "Its size", "The number of other digits", "The base of the numbering system"],
+        correctAnswer: 0
+    },
+    {
+        question: "Which is the highest value in the base-10 system?",
+        options: ["9", "8", "10", "1"],
+        correctAnswer: 0
+    },
+    {
+        question: "Which place value represents hundreds in the base-10 system?",
+        options: ["10", "100", "1", "1000"],
+        correctAnswer: 1
+    }
 ];
 
 let currentQuestion = 0;
