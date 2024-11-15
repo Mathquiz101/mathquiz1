@@ -1,42 +1,18 @@
-// Quiz questions
 const questions = [
-    {
-        question: "What is the base-10 system?",
-        options: ["A numbering system with 8 as the base", "A numbering system with 16 as the base", "A numbering system with 10 as the base", "A numbering system with 2 as the base"],
-        correctAnswer: 2
-    },
-    {
-        question: "How is a number expressed in binary?",
-        options: ["Using digits 1 to 9", "Using digits 0 and 1", "Using hexadecimal letters", "Using Roman numerals"],
-        correctAnswer: 1
-    },
-    {
-        question: "What does the place value of a digit depend on?",
-        options: ["Its position in the number", "Its size", "The number of other digits", "The base of the numbering system"],
-        correctAnswer: 0
-    },
-    {
-        question: "Which is the highest value in the base-10 system?",
-        options: ["9", "8", "10", "1"],
-        correctAnswer: 0
-    },
-    {
-        question: "Which place value represents hundreds in the base-10 system?",
-        options: ["10", "100", "1", "1000"],
-        correctAnswer: 1
-    }
+    { question: "What is 10 in binary?", options: ["10", "1010", "1100", "1001"], correctAnswer: 1 },
+    { question: "What is 3 cubed?", options: ["9", "27", "18", "81"], correctAnswer: 1 },
+    { question: "What is the GCD of 8 and 12?", options: ["2", "3", "4", "6"], correctAnswer: 2 },
+    { question: "How many prime numbers are there between 10 and 20?", options: ["3", "4", "5", "6"], correctAnswer: 0 }
 ];
 
 let currentQuestion = 0;
+let correctAnswers = 0;
 let timer = 60;
 let timerInterval;
-let correctAnswers = 0;
 
 function loadQuestion() {
     const questionElement = document.getElementById("question");
     const optionsContainer = document.getElementById("options-container");
-    const nextButton = document.getElementById("next-button");
-
     questionElement.textContent = questions[currentQuestion].question;
     optionsContainer.innerHTML = "";
 
@@ -48,26 +24,19 @@ function loadQuestion() {
         optionsContainer.appendChild(button);
     });
 
-    nextButton.classList.add("hidden");
     resetTimer();
     startTimer();
 }
 
 function checkAnswer(selectedOption) {
-    const isCorrect = selectedOption === questions[currentQuestion].correctAnswer;
-    if (isCorrect) correctAnswers++;
-
-    document.querySelectorAll(".option").forEach((button, index) => {
-        button.disabled = true;
-        if (index === questions[currentQuestion].correctAnswer) {
-            button.style.backgroundColor = "#228b22"; // Correct answer color
-        } else if (index === selectedOption) {
-            button.style.backgroundColor = "#dc143c"; // Incorrect answer color
-        }
-    });
-
-    clearInterval(timerInterval);
-    document.getElementById("next-button").classList.remove("hidden");
+    if (selectedOption === questions[currentQuestion].correctAnswer) correctAnswers++;
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+        loadQuestion();
+    } else {
+        clearInterval(timerInterval);
+        showResults();
+    }
 }
 
 function resetTimer() {
@@ -81,44 +50,27 @@ function startTimer() {
         document.getElementById("timer").textContent = timer;
         if (timer <= 0) {
             clearInterval(timerInterval);
-            checkAnswer(-1); // No option selected
+            checkAnswer(-1);
         }
     }, 1000);
 }
 
-document.getElementById("next-button").addEventListener("click", () => {
-    currentQuestion++;
-    if (currentQuestion < questions.length) {
-        loadQuestion();
-    } else {
-        showResults();
-    }
-});
-
 function showResults() {
-    const resultContainer = document.getElementById("result-container");
-    const resultMessage = document.getElementById("result-message");
-
     const percentage = (correctAnswers / questions.length) * 100;
+    const modal = document.getElementById("congratulations-modal");
 
     if (percentage >= 50) {
-        resultMessage.textContent = `Great job! You scored ${percentage.toFixed(2)}%. You have advanced to a new level!`;
+        modal.classList.remove("hidden");
+        const copyButton = document.getElementById("copy-link-button");
+        copyButton.addEventListener("click", () => {
+            const link = document.getElementById("achievement-link");
+            link.select();
+            document.execCommand("copy");
+            alert("Achievement link copied to clipboard!");
+        });
     } else {
-        resultMessage.textContent = `You scored ${percentage.toFixed(2)}%. Keep practicing to improve your skills.`;
+        alert(`You scored ${percentage.toFixed(2)}%. Better luck next time!`);
     }
-
-    document.getElementById("quiz-container").classList.add("hidden");
-    resultContainer.classList.remove("hidden");
-
-    // Copy link functionality
-    const copyButton = document.getElementById("copy-link-button");
-    const achievementLink = document.getElementById("achievement-link");
-    copyButton.addEventListener("click", () => {
-        achievementLink.select();
-        document.execCommand("copy");
-        alert("Achievement link copied to clipboard!");
-    });
 }
 
-// Initialize quiz
 loadQuestion();
