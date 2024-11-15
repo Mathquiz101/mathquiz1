@@ -1,185 +1,230 @@
-/* Basic Styling */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* General Styles */
 body {
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #8b0000, #ff4500);
-    color: #333;
+    background: linear-gradient(to bottom, #f0f8ff, #add8e6);
+    margin: 0;
+    padding: 0;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 .container {
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    max-width: 600px;
-    width: 100%;
+    width: 90%;
+    max-width: 800px;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
     padding: 20px;
     text-align: center;
+    position: relative;
 }
 
 h1 {
     font-size: 2rem;
-    color: #8b0000;
-    margin-bottom: 20px;
+    color: #1e3d59;
+    margin-bottom: 10px;
 }
 
 p {
+    color: #4b5563;
     font-size: 1rem;
-    color: #555;
     margin-bottom: 20px;
 }
 
-#question {
+/* Quiz Section */
+#quiz-container {
+    margin-top: 20px;
+}
+
+#question-container h2 {
     font-size: 1.5rem;
+    color: #333;
     margin-bottom: 20px;
 }
 
 #options-container {
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 10px;
 }
 
-.option {
-    background: #cd5c5c;
-    color: #fff;
-    padding: 12px;
+button.option {
+    background-color: #1e90ff;
+    color: #ffffff;
+    padding: 10px;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 1rem;
-    transition: background 0.3s ease;
+    transition: background-color 0.3s;
 }
 
-.option:hover {
-    background: #ff6347;
+button.option:hover {
+    background-color: #4682b4;
 }
 
-.option:disabled {
-    background: #ddd;
-    cursor: not-allowed;
+button.hidden {
+    display: none;
 }
 
 #timer-container {
+    margin: 20px 0;
     font-size: 1.2rem;
-    margin-top: 20px;
-    color: #b22222;
     font-weight: bold;
+    color: #ff4500;
 }
 
-#next-button {
-    background: #228b22;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background 0.3s ease;
-}
-
-#next-button:hover {
-    background: #006400;
-}
-
-#next-button:disabled {
-    background: #bbb;
-    cursor: not-allowed;
-}
-
-.donate-section {
-    background-color: #f3f4f6;
-    border-radius: 10px;
-    margin: 30px 0;
-    padding: 20px;
-    max-width: 600px;
+/* Pop-Up Modal */
+#congratulations-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    text-align: center;
-}
-
-.donate-section h2 {
-    font-size: 1.8rem;
-    color: #2c3e50;
-    margin-bottom: 10px;
-}
-
-.donate-section p {
-    font-size: 1rem;
-    color: #7f8c8d;
-}
-
-.donate-info {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
 }
 
-.donation-method {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 15px;
+#congratulations-modal.active {
+    opacity: 1;
+    visibility: visible;
 }
 
-.wave-logo,
-.gtbank-logo {
-    max-width: 80px;
-    height: auto;
-}
-
-#result-container {
-    text-align: center;
-    margin-top: 20px;
+.modal-content {
+    background-color: #ffffff;
     padding: 20px;
-    border: 2px solid #228b22;
     border-radius: 10px;
-    background: #f0fff0;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-#result-container h2 {
-    font-size: 1.5rem;
+.modal-content h2 {
+    font-size: 2rem;
     color: #228b22;
     margin-bottom: 10px;
 }
 
-#result-container p {
+.modal-content p {
     font-size: 1rem;
     color: #333;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-#achievement-link {
-    width: 80%;
-    padding: 10px;
+.modal-content .link {
+    display: inline-block;
+    margin: 10px auto;
+    padding: 10px 20px;
     font-size: 1rem;
+    color: #ffffff;
+    background-color: #228b22;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.modal-content .link:hover {
+    background-color: #006400;
+}
+
+.modal-content input {
+    width: 90%;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     text-align: center;
     margin-bottom: 10px;
 }
 
-#copy-link-button {
-    background: #228b22;
-    color: #fff;
+.modal-content button {
+    margin-top: 10px;
     padding: 10px 20px;
+    background-color: #228b22;
+    color: #ffffff;
     border: none;
-    border-radius: 8px;
-    font-size: 1rem;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background-color 0.3s;
 }
 
-#copy-link-button:hover {
-    background: #006400;
+.modal-content button:hover {
+    background-color: #006400;
+}
+
+/* Donate Section */
+.donate-section {
+    margin-top: 30px;
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-top: 2px solid #1e90ff;
+}
+
+.donate-section h2 {
+    font-size: 1.5rem;
+    color: #1e3d59;
+}
+
+.donate-section p {
+    color: #555;
+    font-size: 1rem;
+    margin: 10px 0 20px;
+}
+
+.donate-info {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.donation-method {
+    text-align: center;
+}
+
+.wave-logo,
+.gtbank-logo {
+    width: 100px;
+    height: auto;
+    margin: 10px 0;
+}
+
+.donation-method p {
+    font-size: 1rem;
+    color: #333;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 600px) {
+    #options-container {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+
+    .donate-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .wave-logo,
+    .gtbank-logo {
+        width: 80px;
+    }
 }
