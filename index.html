@@ -22,29 +22,34 @@
             </div>
             <button id="next-button" class="hidden">Next Question</button>
         </div>
-        <div id="result-container" class="hidden">
-            <h2>Congratulations!</h2>
-            <p id="result-message"></p>
-            <p><strong>copy and save this link for access to the next lecture content.:</strong></p>
-            <input type="text" id="achievement-link" readonly value="https://example.com/next-level">
-            <button id="copy-link-button">Copy Link</button>
-        </div>
-    </div>
 
-    <!-- Donate Section -->
-    <div class="donate-section">
-        <h2>Please Donate</h2>
-        <p>Your support helps us create more challenging content for advanced learning.</p>
-        <div class="donate-info">
-            <!-- Wave Donation Option -->
-            <div class="donation-method">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX1j8_1o20igEk7AJyDYrJ_cH3dBXBr6jwuw&usqp=CAU" alt="Wave Logo" class="wave-logo">
-                <p>Wave Phone Number: <strong>3709558</strong></p>
+        <!-- Pop-up Modal for Congratulations -->
+        <div id="congratulations-modal" class="hidden">
+            <div class="modal-content">
+                <h2>Congratulations!</h2>
+                <p>You scored more than 50%! Click the link below to advance to the next level:</p>
+                <a href="https://example.com/next-level" target="_blank" class="link">Next Level</a>
+                <p>Share the link before exiting:</p>
+                <input type="text" id="achievement-link" readonly value="https://example.com/next-level">
+                <button id="copy-link-button">Copy Link</button>
             </div>
-            <!-- GTBank Donation Option -->
-            <div class="donation-method">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/GTBank_logo.svg/2048px-GTBank_logo.svg.png" alt="GTBank Logo" class="gtbank-logo">
-                <p>GTBank Account Number: <strong>2032202001590</strong></p>
+        </div>
+
+        <!-- Donate Section -->
+        <div class="donate-section">
+            <h2>Please Donate</h2>
+            <p>Your support helps us create more challenging content for advanced learning.</p>
+            <div class="donate-info">
+                <!-- Wave Donation Option -->
+                <div class="donation-method">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX1j8_1o20igEk7AJyDYrJ_cH3dBXBr6jwuw&usqp=CAU" alt="Wave Logo" class="wave-logo">
+                    <p>Wave Phone Number: <strong>3709558</strong></p>
+                </div>
+                <!-- GTBank Donation Option -->
+                <div class="donation-method">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/GTBank_logo.svg/2048px-GTBank_logo.svg.png" alt="GTBank Logo" class="gtbank-logo">
+                    <p>GTBank Account Number: <strong>2032202001590</strong></p>
+                </div>
             </div>
         </div>
     </div>
