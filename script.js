@@ -196,10 +196,8 @@ function getPerformanceRating(percentage) {
     return "Need More Practice 💪";
 }
 function generateNextLevelLink(score) {
-    // Create a unique link based on score and timestamp
-    const timestamp = Date.now();
-    const hash = btoa(`${score}-${timestamp}`); // Simple encoding
-    return `https://math-quiz-level2.example.com/${hash}`;
+    // Return the fixed URL instead of generating a dynamic one
+    return 'https://waecmathsuccess.github.io/mathmadesimple1/';
 }
 
 function copyLink() {
