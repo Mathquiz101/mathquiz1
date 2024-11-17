@@ -1,38 +1,44 @@
+HTML5 CODE 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Introduction to Number and Numerations Quiz</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Math Quiz - 60s Per Question</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Introduction to Number and Numerations</h1>
-        <p>Test your mastery over numbers with these advanced questions.</p>
-        <div id="quiz-container">
-            <div id="question-container">
-                <h2 id="question">Loading question...</h2>
-                <div id="options-container">
-                    <!-- Options will be dynamically added here -->
+    <div class="quiz-container">
+        <h1 style="text-align: center;">Numbers and Numeration Quiz</h1>
+        <div id="start-screen">
+            <h2>Test your knowledge!</h2>
+            <p>You have 60 seconds for each question.</p>
+            <p>Total questions: 10</p>
+            <button id="start-btn">Start Quiz</button>
+        </div>
+        <div id="quiz-screen" class="hide">
+            <div class="timer">Time left: 60s</div>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <div class="question-number"></div>
+            <div class="question" id="question"></div>
+            <div class="options" id="options"></div>
+            <button id="next-btn" class="hide">Next Question</button>
+        </div>
+        <div id="result-screen" class="hide">
+            <div class="result"></div>
+            <div id="next-level-container" class="hide next-level-link">
+                <h3>🎉 Congratulations! You've Unlocked Level 2! 🎉</h3>
+                <p>Your special access link to Level 2:</p>
+                <a href="#" id="next-level-link" target="_blank"></a>
+                <br>
+                <button class="copy-btn" onclick="copyLink()">Copy Link</button>
+                <div class="save-reminder">
+                  ⚠️ Important: Save this link! Without it, you won't be able to access Level 2 materials.
                 </div>
             </div>
-            <div id="timer-container">
-                <span id="timer">60</span> seconds left
-            </div>
-            <button id="next-button" class="hidden">Next Question</button>
-        </div>
-
-        <!-- Pop-up Modal for Congratulations -->
-        <div id="congratulations-modal" class="hidden">
-            <div class="modal-content">
-                <h2>Congratulations!</h2>
-                <p>You scored more than 50%! Click the link below to advance to the next level:</p>
-                <a href="https://example.com/next-level" target="_blank" class="link">Next Level</a>
-                <p>Share the link before exiting:</p>
-                <input type="text" id="achievement-link" readonly value="https://example.com/next-level">
-                <button id="copy-link-button">Copy Link</button>
-            </div>
+            <button id="restart-btn" onclick="location.reload()">Restart Quiz</button>
         </div>
 
         <!-- Donate Section -->
@@ -53,7 +59,5 @@
             </div>
         </div>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
