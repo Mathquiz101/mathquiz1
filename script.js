@@ -67,9 +67,11 @@ const optionsEl = document.getElementById('options');
 const timerEl = document.querySelector('.timer');
 const progressBar = document.querySelector('.progress');
 const questionNumber = document.querySelector('.question-number');
+const donationBtn = document.getElementById('donation-btn');  // Added for donation section
 
 startBtn.addEventListener('click', startQuiz);
 nextBtn.addEventListener('click', nextQuestion);
+donationBtn.addEventListener('click', openDonationPage); // Add event listener for donation button
 
 function startQuiz() {
     startScreen.classList.add('hide');
@@ -179,6 +181,7 @@ function getPerformanceRating(percentage) {
     if (percentage >= 60) return "Keep Practicing! 📚";
     return "Need More Practice 💪";
 }
+
 function generateNextLevelLink(score) {
     // Create a unique link based on score and timestamp
     const timestamp = Date.now();
@@ -199,36 +202,7 @@ function copyLink() {
     });
 }
 
-function endQuiz() {
-    clearInterval(timer);
-    quizEnded = true;
-    quizScreen.classList.add('hide');
-    resultScreen.classList.remove('hide');
-    
-    const resultEl = document.querySelector('.result');
-    const percentage = (score / questions.length) * 100;
-    
-    resultEl.innerHTML = `
-        <h2>Quiz Complete!</h2>
-        <p>Your score: ${score} out of ${questions.length}</p>
-        <p>Percentage: ${percentage}%</p>
-        <p>Performance Rating: ${getPerformanceRating(percentage)}</p>
-    `;
-
-    // Show next level link if score is above 50%
-    if (percentage > 50) {
-        const nextLevelContainer = document.getElementById('next-level-container');
-        const nextLevelLink = document.getElementById('next-level-link');
-        const link = generateNextLevelLink(score);
-        
-        nextLevelLink.href = link;
-        nextLevelLink.textContent = link;
-        nextLevelContainer.classList.remove('hide');
-        nextLevelContainer.classList.add('celebration');
-        
-        // Add confetti effect
-        setTimeout(() => {
-            nextLevelContainer.classList.remove('celebration');
-        }, 1000);
-    }
+function openDonationPage() {
+    // Open the donation page in a new tab (change URL as per your actual donation page link)
+    window.open('https://your-donation-page-link.com', '_blank');
 }
