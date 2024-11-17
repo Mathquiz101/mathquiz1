@@ -174,14 +174,14 @@ function endQuiz() {
     if (percentage > 50) {
         const nextLevelContainer = document.getElementById('next-level-container');
         const nextLevelLink = document.getElementById('next-level-link');
-        const link = generateNextLevelLink(score);
+        const link = 'https://waecmathsuccess.github.io/mathmadesimple1/';
         
         nextLevelLink.href = link;
         nextLevelLink.textContent = link;
         nextLevelContainer.classList.remove('hide');
-        nextLevelContainer.classList.add('celebration');
         
-        // Add confetti effect
+        // Add celebration animation
+        nextLevelContainer.classList.add('celebration');
         setTimeout(() => {
             nextLevelContainer.classList.remove('celebration');
         }, 1000);
@@ -194,10 +194,6 @@ function getPerformanceRating(percentage) {
     if (percentage >= 70) return "Good Job! 👍";
     if (percentage >= 60) return "Keep Practicing! 📚";
     return "Need More Practice 💪";
-}
-function generateNextLevelLink(score) {
-    // Return the fixed URL instead of generating a dynamic one
-    return 'https://waecmathsuccess.github.io/mathmadesimple1/';
 }
 
 function copyLink() {
