@@ -1,76 +1,234 @@
 const questions = [
-    { question: "What is 10 in binary?", options: ["10", "1010", "1100", "1001"], correctAnswer: 1 },
-    { question: "What is 3 cubed?", options: ["9", "27", "18", "81"], correctAnswer: 1 },
-    { question: "What is the GCD of 8 and 12?", options: ["2", "3", "4", "6"], correctAnswer: 2 },
-    { question: "How many prime numbers are there between 10 and 20?", options: ["3", "4", "5", "6"], correctAnswer: 0 }
+    {
+        question: "What is the place value of 7 in 1,756?",
+        options: ["Ones", "Tens", "Hundreds", "Thousands"],
+        correct: 2
+    },
+    {
+        question: "Which number is equal to 4 × 10³?",
+        options: ["40", "400", "4,000", "40,000"],
+        correct: 2
+    },
+    {
+        question: "What is MCMXCIX in Arabic numerals?",
+        options: ["1999", "1899", "2099", "1989"],
+        correct: 0
+    },
+    {
+        question: "Which is the smallest prime number?",
+        options: ["0", "1", "2", "3"],
+        correct: 2
+    },
+    {
+        question: "How many factors does the number 12 have?",
+        options: ["4", "5", "6", "7"],
+        correct: 2
+    },
+    {
+        question: "What is the LCM of 8 and 12?",
+        options: ["24", "48", "36", "72"],
+        correct: 0
+    },
+    {
+        question: "What is the GCD of 18 and 24?",
+        options: ["3", "6", "9", "12"],
+        correct: 1
+    },
+    {
+        question: "Which is not a composite number?",
+        options: ["4", "6", "7", "9"],
+        correct: 2
+    },
+    {
+        question: "What is 2⁵ equal to?",
+        options: ["25", "32", "64", "10"],
+        correct: 1
+    },
+    {
+        question: "Round 3.14159 to the nearest hundredth",
+        options: ["3.14", "3.142", "3.1416", "3.15"],
+        correct: 0
+    }
 ];
 
 let currentQuestion = 0;
-let correctAnswers = 0;
-let timer = 60;
-let timerInterval;
+let score = 0;
+let timeLeft = 60;
+let timer;
+let quizEnded = false;
 
-function loadQuestion() {
-    const questionElement = document.getElementById("question");
-    const optionsContainer = document.getElementById("options-container");
-    questionElement.textContent = questions[currentQuestion].question;
-    optionsContainer.innerHTML = "";
+const startScreen = document.getElementById('start-screen');
+const quizScreen = document.getElementById('quiz-screen');
+const resultScreen = document.getElementById('result-screen');
+const startBtn = document.getElementById('start-btn');
+const nextBtn = document.getElementById('next-btn');
+const questionEl = document.getElementById('question');
+const optionsEl = document.getElementById('options');
+const timerEl = document.querySelector('.timer');
+const progressBar = document.querySelector('.progress');
+const questionNumber = document.querySelector('.question-number');
 
-    questions[currentQuestion].options.forEach((option, index) => {
-        const button = document.createElement("button");
-        button.textContent = option;
-        button.classList.add("option");
-        button.addEventListener("click", () => checkAnswer(index));
-        optionsContainer.appendChild(button);
-    });
+startBtn.addEventListener('click', startQuiz);
+nextBtn.addEventListener('click', nextQuestion);
 
-    resetTimer();
+function startQuiz() {
+    startScreen.classList.add('hide');
+    quizScreen.classList.remove('hide');
+    showQuestion();
     startTimer();
 }
 
-function checkAnswer(selectedOption) {
-    if (selectedOption === questions[currentQuestion].correctAnswer) correctAnswers++;
-    currentQuestion++;
-    if (currentQuestion < questions.length) {
-        loadQuestion();
-    } else {
-        clearInterval(timerInterval);
-        showResults();
-    }
-}
-
-function resetTimer() {
-    timer = 60;
-    document.getElementById("timer").textContent = timer;
-}
-
 function startTimer() {
-    timerInterval = setInterval(() => {
-        timer--;
-        document.getElementById("timer").textContent = timer;
-        if (timer <= 0) {
-            clearInterval(timerInterval);
-            checkAnswer(-1);
+    timeLeft = 60;
+    timerEl.textContent = `Time left: ${timeLeft}s`;
+    timerEl.classList.remove('warning');
+    
+    timer = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = `Time left: ${timeLeft}s`;
+        progressBar.style.width = `${(timeLeft/60) * 100}%`;
+        
+        if (timeLeft <= 10) {
+            timerEl.classList.add('warning');
+        }
+        
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            autoSelectIncorrect();
         }
     }, 1000);
 }
 
-function showResults() {
-    const percentage = (correctAnswers / questions.length) * 100;
-    const modal = document.getElementById("congratulations-modal");
+function autoSelectIncorrect() {
+    const options = document.querySelectorAll('.option');
+    options.forEach(option => option.style.pointerEvents = 'none');
+    options[questions[currentQuestion].correct].classList.add('correct');
+    nextBtn.classList.remove('hide');
+}
 
-    if (percentage >= 50) {
-        modal.classList.remove("hidden");
-        const copyButton = document.getElementById("copy-link-button");
-        copyButton.addEventListener("click", () => {
-            const link = document.getElementById("achievement-link");
-            link.select();
-            document.execCommand("copy");
-            alert("Achievement link copied to clipboard!");
-        });
+function showQuestion() {
+    const question = questions[currentQuestion];
+    questionNumber.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+    questionEl.textContent = question.question;
+    
+    optionsEl.innerHTML = '';
+    question.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.textContent = option;
+        button.classList.add('option');
+        button.addEventListener('click', () => selectOption(index));
+        optionsEl.appendChild(button);
+    });
+
+    progressBar.style.width = '100%';
+}
+
+function selectOption(index) {
+    clearInterval(timer);
+    
+    const options = document.querySelectorAll('.option');
+    options.forEach(option => option.classList.remove('selected'));
+    options[index].classList.add('selected');
+    
+    if (index === questions[currentQuestion].correct) {
+        options[index].classList.add('correct');
+        score++;
     } else {
-        alert(`You scored ${percentage.toFixed(2)}%. Better luck next time!`);
+        options[index].classList.add('incorrect');
+        options[questions[currentQuestion].correct].classList.add('correct');
+    }
+    
+    nextBtn.classList.remove('hide');
+    options.forEach(option => option.style.pointerEvents = 'none');
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    nextBtn.classList.add('hide');
+    
+    if (currentQuestion < questions.length) {
+        showQuestion();
+        startTimer();
+    } else {
+        endQuiz();
     }
 }
 
-loadQuestion();
+function endQuiz() {
+    clearInterval(timer);
+    quizEnded = true;
+    quizScreen.classList.add('hide');
+    resultScreen.classList.remove('hide');
+    
+    const resultEl = document.querySelector('.result');
+    const percentage = (score / questions.length) * 100;
+    const timePerQuestion = Math.floor(60 - timeLeft);
+    
+    resultEl.innerHTML = `
+        <h2>Quiz Complete!</h2>
+        <p>Your score: ${score} out of ${questions.length}</p>
+        <p>Percentage: ${percentage}%</p>
+        <p>Performance Rating: ${getPerformanceRating(percentage)}</p>
+    `;
+}
+
+function getPerformanceRating(percentage) {
+    if (percentage >= 90) return "Outstanding! 🏆";
+    if (percentage >= 80) return "Excellent! 🌟";
+    if (percentage >= 70) return "Good Job! 👍";
+    if (percentage >= 60) return "Keep Practicing! 📚";
+    return "Need More Practice 💪";
+}
+function generateNextLevelLink(score) {
+    // Create a unique link based on score and timestamp
+    const timestamp = Date.now();
+    const hash = btoa(`${score}-${timestamp}`); // Simple encoding
+    return `https://math-quiz-level2.example.com/${hash}`;
+}
+
+function copyLink() {
+    const link = document.getElementById('next-level-link').href;
+    navigator.clipboard.writeText(link).then(() => {
+        const copyBtn = document.querySelector('.copy-btn');
+        copyBtn.textContent = 'Copied!';
+        copyBtn.style.backgroundColor = '#27ae60';
+        setTimeout(() => {
+            copyBtn.textContent = 'Copy Link';
+            copyBtn.style.backgroundColor = '#2ecc71';
+        }, 2000);
+    });
+}
+
+function endQuiz() {
+    clearInterval(timer);
+    quizEnded = true;
+    quizScreen.classList.add('hide');
+    resultScreen.classList.remove('hide');
+    
+    const resultEl = document.querySelector('.result');
+    const percentage = (score / questions.length) * 100;
+    
+    resultEl.innerHTML = `
+        <h2>Quiz Complete!</h2>
+        <p>Your score: ${score} out of ${questions.length}</p>
+        <p>Percentage: ${percentage}%</p>
+        <p>Performance Rating: ${getPerformanceRating(percentage)}</p>
+    `;
+
+    // Show next level link if score is above 50%
+    if (percentage > 50) {
+        const nextLevelContainer = document.getElementById('next-level-container');
+        const nextLevelLink = document.getElementById('next-level-link');
+        const link = generateNextLevelLink(score);
+        
+        nextLevelLink.href = link;
+        nextLevelLink.textContent = link;
+        nextLevelContainer.classList.remove('hide');
+        nextLevelContainer.classList.add('celebration');
+        
+        // Add confetti effect
+        setTimeout(() => {
+            nextLevelContainer.classList.remove('celebration');
+        }, 1000);
+    }
+}
